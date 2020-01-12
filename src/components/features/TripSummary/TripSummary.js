@@ -24,6 +24,8 @@ const TripSummary = ({id, image, name, cost, days, tags}) => (
   </Col>
 );
 
+console.log(TripSummary.id);
+
 TripSummary.propTypes = {
   id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   image: PropTypes.string,
