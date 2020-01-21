@@ -9,7 +9,7 @@ const OrderForm = ({ tripCost, options, setOrderOption }) => (
 
   <Row>
     {pricing.map(option => (
-      <Col key={option.id} lg={8} md={8}>
+      <Col key={option.id} lg={12} md={8}>
         <OrderOption
           {...option}
           currentValue={options[option.id]}
