@@ -32,16 +32,29 @@ describe('Component TripSummary', () => {
     expect(component.find('img').prop('alt')).toEqual(expectedAlt);
   });
 
-  it('should render correct values of name, cost and days', () =>{
+  it('should render correct values of name, cost and days', () => {
     const tagsOpt = [ 'a', 'b', 'c'];
     const expectedName = 'title';
     const expectedCosts = '5000';
     const expectedDays =  14;
-    const component = shallow(<TripSummary id={'id'} image={'image'} name={expectedName} cost={expectedCosts} days={expectedDays} tags={tagsOpt} />);
+    const component = shallow(<TripSummary id={'id'} image={'image.jpg'} name={expectedName} cost={expectedCosts} days={expectedDays} tags={tagsOpt} />);
 
     expect(component.find('.title').text()).toEqual(expectedName);
     expect(component.find('.details').childAt(1).containsMatchingElement(<span>from {expectedCosts}</span>)).toEqual(true);
     expect(component.find('.details').childAt(0).containsMatchingElement(<span>{expectedDays} days</span>)).toEqual(true);
-    console.log(component.debug());
+  });
+
+  it('should render correct tags', () => {
+    const tagsOpt = ['a', 'b', 'c'];
+    const component = shallow(<TripSummary id={'id'} image={'image'} name={'name'} cost={'cost'} days={3} tags={tagsOpt} />);
+
+    for(let i = 0; i < tagsOpt.length; i++){
+      expect(component.find('.tag').at([i]).text()).toEqual(tagsOpt[i]);
+    }
+  });
+
+  it('should not render tags if empty or false', () => {
+    const component = shallow(<TripSummary id={'id'} image={'image'} name={'name'} cost={'cost'} days={3} />);
+    expect(component.find('.tags')).toEqual({});
   });
 });

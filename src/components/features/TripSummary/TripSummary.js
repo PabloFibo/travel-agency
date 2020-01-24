@@ -16,9 +16,9 @@ const TripSummary = ({id, image, name, cost, days, tags}) => (
           <span>from {cost}</span>
         </div>
         <div className={styles.tags}>
-          {tags.map(tag => (
+          {tags ? tags.map(tag => (
             <span className={styles.tag} key={tag.toString()}>{tag}</span>
-          ))}
+          )) : tags == 'undefined'}
         </div>
       </article>
     </Link>
