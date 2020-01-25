@@ -69,6 +69,8 @@ describe('Component OrderOption', () => {
         component = shallow (
           <OrderOption
             type={type}
+            {...mockProps}
+            {...mockPropsForType[type]}
           />
         );
         subcomponent = component.find(optionTypes[type]);
@@ -76,15 +78,30 @@ describe('Component OrderOption', () => {
       });
 
       /* common tests */
-      it('passes dummy test', () => {
-        expect(1).toBe(1);
+      it(`renders ${optionTypes[type]}`, () => {
+        expect(subcomponent).toBeTruthy();
+        expect(subcomponent.length).toBe(1);
         console.log(component.debug());
+        console.log(subcomponent.debug());
       });
 
       /* type-specific tests */
       switch (type) {
         case 'dropdown': {
           /* tests for dropdown */
+          it('contains select and options', () => {
+            const select = renderedSubcomponent.find('select');
+            expect(select.length).toBe(1);
+            console.log(select.debug());
+
+            const emptyOption = select.find('option[value=""]').length;
+            expect(emptyOption).toBe(1);
+
+            const options = select.find('option').not('[value=""]');
+            expect(options.length).toBe(mockProps.values.length);
+            expect(options.at(0).prop('value')).toBe(mockProps.values[0].id);
+            expect(options.at(1).prop('value')).toBe(mockProps.values[1]);
+          });
           break;
         }
       }
