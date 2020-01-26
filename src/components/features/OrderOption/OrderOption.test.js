@@ -138,6 +138,23 @@ for(let type in optionTypes){
         });
         break;
       }
+
+      case 'number': {
+        it('contains div and input', () => {
+          const expectedNumberDiv = renderedSubcomponent.find('.number');
+          const expectedInputs = renderedSubcomponent.find('input[type="number"]');
+
+          expect(expectedNumberDiv.length).toBe(1);
+          expect(expectedInputs.length).toBe(1);
+        });
+
+        it('should run setOrderOption function on chnage', () => {
+          renderedSubcomponent.find('input[type="number"]').simulate('change', { currentTarget: { value: testValueNumber } });
+          expect(mockSetOrderOption).toBeCalledTimes(1);
+          expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValueNumber });
+        });
+        break;
+      }
     }
   });
 }
