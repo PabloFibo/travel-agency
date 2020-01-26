@@ -13,12 +13,12 @@ describe('Component OrderOption', () => {
     expect(component).toEqual({});
   });
 
-  it('should redner title', () => {
+  /*it('should redner title', () => {
     const expectedTitle = 'title';
     const component = shallow(<OrderOption type={'type'} name={expectedTitle} id={'id'} />);
 
     expect(component.find('.title').text()).toEqual(expectedTitle);
-  });
+  });*/
 
   const optionTypes = {
     dropdown: 'OrderOptionDropdown',
@@ -83,8 +83,6 @@ describe('Component OrderOption', () => {
       it(`renders ${optionTypes[type]}`, () => {
         expect(subcomponent).toBeTruthy();
         expect(subcomponent.length).toBe(1);
-        /*console.log(component.debug());
-        console.log(subcomponent.debug());*/
       });
 
       /* type-specific tests */
@@ -94,7 +92,6 @@ describe('Component OrderOption', () => {
           it('contains select and options', () => {
             const select = renderedSubcomponent.find('select');
             expect(select.length).toBe(1);
-            //console.log(select.debug());
 
             const emptyOption = select.find('option[value=""]').length;
             expect(emptyOption).toBe(1);
@@ -111,6 +108,19 @@ describe('Component OrderOption', () => {
             expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValue});
           });
           break;
+        }
+
+        case 'icons': {
+          /* tests for icons */
+          it('contains div with class icon', () => {
+            const expectedIcon = renderedSubcomponent.find('.icon');
+            expect(expectedIcon.length).toBe(mockProps.values.length + 1);
+          });
+
+          it('should run setOrderOption function on click', () => {
+            renderedSubcomponent.find('.icon').at(1).simulate('click');
+            expect(mockSetOrderOption).toBeCalledTimes(1);
+          });
         }
       }
     });
