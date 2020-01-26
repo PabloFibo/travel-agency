@@ -18,7 +18,6 @@ describe('Component OrderOption', () => {
     const component = shallow(<OrderOption type={'type'} name={expectedTitle} id={'id'} />);
 
     expect(component.find('.title').text()).toEqual(expectedTitle);
-    console.log(component.debug());
   });
 
   const optionTypes = {
@@ -64,11 +63,14 @@ describe('Component OrderOption', () => {
       let component;
       let subcomponent;
       let renderedSubcomponent;
+      let mockSetOrderOption;
 
       beforeEach(() => {
+        mockSetOrderOption = jest.fn();
         component = shallow (
           <OrderOption
             type={type}
+            setOrderOption={mockSetOrderOption}
             {...mockProps}
             {...mockPropsForType[type]}
           />
@@ -81,8 +83,8 @@ describe('Component OrderOption', () => {
       it(`renders ${optionTypes[type]}`, () => {
         expect(subcomponent).toBeTruthy();
         expect(subcomponent.length).toBe(1);
-        console.log(component.debug());
-        console.log(subcomponent.debug());
+        /*console.log(component.debug());
+        console.log(subcomponent.debug());*/
       });
 
       /* type-specific tests */
@@ -92,7 +94,7 @@ describe('Component OrderOption', () => {
           it('contains select and options', () => {
             const select = renderedSubcomponent.find('select');
             expect(select.length).toBe(1);
-            console.log(select.debug());
+            //console.log(select.debug());
 
             const emptyOption = select.find('option[value=""]').length;
             expect(emptyOption).toBe(1);
@@ -100,7 +102,13 @@ describe('Component OrderOption', () => {
             const options = select.find('option').not('[value=""]');
             expect(options.length).toBe(mockProps.values.length);
             expect(options.at(0).prop('value')).toBe(mockProps.values[0].id);
-            expect(options.at(1).prop('value')).toBe(mockProps.values[1]);
+            expect(options.at(1).prop('value')).toBe(mockProps.values[1].id);
+          });
+
+          it('should run setOrderOption function on change', () => {
+            renderedSubcomponent.find('select').simulate('change', {currentTarget: {value: testValue}});
+            expect(mockSetOrderOption).toBeCalledTimes(1);
+            expect(mockSetOrderOption).toBeCalledWith({ [mockProps.id]: testValue});
           });
           break;
         }

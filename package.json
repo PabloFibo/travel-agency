@@ -1,5 +1,5 @@
 {
-  "name": "react-to-do",
+  "name": "travel-agency",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -11,7 +11,7 @@
     "lint": "eslint src/",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --colors"
+    "test:coverage": "jest --coverage --colors --watch"
   },
   "husky": {
     "hooks": {
