@@ -11,6 +11,50 @@
       "start-date": "",
       "totalCost": "$51,381",
       "id": 1
+    },
+    {
+      "car-rental": "suv",
+      "accommodation": "house",
+      "features": [
+        "all-inclusive",
+        "kitchen"
+      ],
+      "adults": "2",
+      "children": "2",
+      "name": "Paul",
+      "contact": "123456789",
+      "start-date": "",
+      "totalCost": "$159,842",
+      "id": 2
+    },
+    {
+      "car-rental": "",
+      "accommodation": "hotel",
+      "features": [],
+      "adults": 1,
+      "children": 0,
+      "name": "",
+      "contact": "",
+      "start-date": "",
+      "totalCost": "$51,381",
+      "id": 3
+    },
+    {
+      "car-rental": "suv",
+      "accommodation": "house",
+      "features": [
+        "kitchen",
+        "pool"
+      ],
+      "adults": "2",
+      "children": "2",
+      "name": "Paul",
+      "contact": "1234",
+      "totalCost": "$162,242",
+      "code": "TUR",
+      "tripName": "Pleasant travel in cool Turkey",
+      "tripId": "5cc1d10130dfa407e2e54e20",
+      "id": 4
     }
   ]
 }

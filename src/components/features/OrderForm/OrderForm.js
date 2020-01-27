@@ -9,12 +9,13 @@ import { formatPrice } from '../../../utils/formatPrice';
 import { calculateTotal } from '../../../utils/calculateTotal';
 import settings from '../../../data/settings';
 
-const sendOrder = (options, tripCost) => {
+const sendOrder = (trip, options, tripCost) => {
   const totalCost = formatPrice(calculateTotal(tripCost, options));
 
   const payload = {
     ...options,
     totalCost,
+    ...trip,
   };
 
   const url = settings.db.url + '/' + settings.db.endpoint.orders;
@@ -36,7 +37,16 @@ const sendOrder = (options, tripCost) => {
     });
 };
 
-const OrderForm = ({ tripCost, options, setOrderOption }) => (
+const isValid = ( trip, options, tripCost ) => {
+  const { name, contact } = options;
+  if( name !== '' && contact !== '') {
+    sendOrder( trip, options, tripCost );
+  } else {
+    window.alert('Please fill in name and contact fields');
+  }
+};
+
+const OrderForm = ({ trip, tripCost, options, setOrderOption }) => (
 
   <Row>
     {pricing.map(option => (
@@ -53,15 +63,18 @@ const OrderForm = ({ tripCost, options, setOrderOption }) => (
         tripCost={tripCost}
         options={options}
       />
-      <Button onClick={() => sendOrder(options, tripCost)}>Order now!</Button>
+      <Button onClick={() => isValid( trip, options, tripCost )}>Order now!</Button>
     </Col>
   </Row>
+
 );
+
 
 OrderForm.propTypes = {
   tripCost : PropTypes.string,
   options: PropTypes.object,
   setOrderOption: PropTypes.func,
+  trip: PropTypes.object,
 };
 
 export default OrderForm;
